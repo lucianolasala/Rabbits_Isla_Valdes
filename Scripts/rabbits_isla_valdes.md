@@ -1,3 +1,4 @@
+```
 // App title
 var header1 = ui.Label("Change in Soil Adjusted Vegetation Index (SAVI) at Isla Valdés, Chubut, after European rabbit (Oryctolagus cuniculus) eradication.", 
             {fontSize: '16px', fontWeight: 'bold', color: '4A997E'});
@@ -355,4 +356,4 @@ calculateScaleBar(Map);
 
 // Add the scale bar panel to the map
 Map.add(scaleBarPanel);
-
+```
