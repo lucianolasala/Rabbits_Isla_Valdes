@@ -9,18 +9,17 @@ var text1 = ui.Label(
 "\"Community-wide effects of rabbit eradication in Atlantic islands of Patagonia, Argentina. "
 , {fontSize: '14px'});
 
-//----------------------------------------------------------------------    
+//------------------------------------------------------------------------------    
 // Create a panel 1 to hold the above text
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 var panel1 = ui.Panel({
   widgets:[header1, text1], // Adds header and text
   style:{width: '350px', position:'top-right', backgroundColor: 'white'}});
 
-
-//---------------------------------------------------------------------- 
+//------------------------------------------------------------------------------ 
 // Create panel 2 to house a line separator and instructions for the user
-//---------------------------------------------------------------------- 
+//------------------------------------------------------------------------------ 
 
 var panel2 = ui.Panel([
   ui.Label({
@@ -77,9 +76,9 @@ var panel3 = ui.Panel({
   style: {position: 'top-right'}
 });
 
-//----------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Checkbox for activating/deactivating the farms layer
-//----------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // Create checkbox to toggle the visibility of the transects layer
 var toggleTransectCheckbox = ui.Checkbox({
@@ -123,8 +122,10 @@ var checkboxPanel = ui.Panel({
 // Add to the main panel
 panel1.add(panel2).add(panel3).add(toggleTransectCheckbox);
 
-
+//------------------------------------------------------------------------------
 // Set the default basemap to satellite
+//------------------------------------------------------------------------------
+
 Map.setOptions('SATELLITE');
 
 // Visualization parameters for raster of vegetation types
@@ -152,7 +153,6 @@ var visParams_1 = {
   palette: palette_1
 };
 
-
 // Visualization parameters for raster comparisons between periods
 var palette_2 = ['#ca6f1e','#58d68d'];
 
@@ -164,17 +164,19 @@ var visParams_2 = {
 
 Map.centerObject(island, 14); 
 
+//------------------------------------------------------------------------------
 // Add cameras
+//------------------------------------------------------------------------------
+
 // Define a styling function
 var stylePoints = function(feature) {
   var rabbitValue = feature.get('Rabbits');
   
-  // Define the color based on the "Rabbits" value
-  var color = ee.Algorithms.If(
+// Define the color based on the "Rabbits" value
+var color = ee.Algorithms.If(
     ee.String(rabbitValue).equals('Yes'),
     '#2a2524', // Color if 'Yes'
-    '#ffffff' // Color if 'No'
-  );
+    '#ffffff' // Color if 'No');
   
   return feature.set({style: {color: color, pointSize: 5}});
 };
@@ -185,10 +187,9 @@ var styledPoints = cams.map(stylePoints);
 // Add the styled points to the map
 Map.addLayer(styledPoints.style({styleProperty: 'style'}), {}, 'Rabbits Presence');
 
-
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Define the palette and labels for vegetation types
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 var palette_b = [
   '#cbcbcb', // Category 8: White. Beach
@@ -260,9 +261,9 @@ for (var i = 0; i < palette_b.length; i++) {
 // Add the legend to the map
 Map.add(legend);
 
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Add circle labels for cameras using Unicode characters
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // Define the colors and labels for the camera points
 var cameraIcons = ['\u26AB', '\u26AA'];  // Black and White circle icons
@@ -293,10 +294,9 @@ for (var j = 0; j < cameraIcons.length; j++) {
   legend.add(circleLabel);
 }
 
-
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // Add the black line for transects and its label
-//--------------------------------------------------------------------
+//------------------------------------------------------------------------------
 
 // Create a black line legend item
 var lineBox = ui.Label({
